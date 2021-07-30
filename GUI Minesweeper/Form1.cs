@@ -15,8 +15,7 @@ namespace GUI_Minesweeper
         static public board myBoard = new board(10);
         public Button[,] btnGrid = new Button[myBoard.size, myBoard.size];
         bool endgame = false;
-
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -41,11 +40,9 @@ namespace GUI_Minesweeper
                     btnGrid[x, y].Width = buttonSize;
                     btnGrid[x, y].Height = buttonSize;
 
-                    btnGrid[x, y].Click += Grid_Button_Click; //Click event for each button
+                    btnGrid[x, y].MouseDown += Grid_Button_Click; //Click event for each button
                     panel1.Controls.Add(btnGrid[x, y]); //Place Button on the Panel
                     btnGrid[x, y].Location = new Point(buttonSize * x, buttonSize * y); //Position it with x, y cordinates
-
-                    btnGrid[x, y].Text = x.ToString() + "|" + y.ToString();
 
                     //Tag attribute will hold row and column number in a string
                     btnGrid[x, y].Tag = x.ToString() + "|" + y.ToString();
@@ -53,38 +50,123 @@ namespace GUI_Minesweeper
             }
         }
 
-        private void Grid_Button_Click(object? sender, EventArgs e)
+        private void Grid_Button_Click(object? sender, MouseEventArgs e)
         {
             //Get the Row and Column Number of the Button that was just Clicked
             string[] strArr = (sender as Button).Tag.ToString().Split("|");
             int x = int.Parse(strArr[0]);
             int y = int.Parse(strArr[1]);
 
-            //Display the Live Neighbors for the clicked square
-            btnGrid[x, y].Text = myBoard.grid[x, y].liveNeighbors.ToString();
-
-            //Set the Visited Property to true on the Selected Square
-            myBoard.grid[x, y].visited = true;
-
-            //Call recursive flood fill on the clicked square
-            myBoard.floodFill(x, y);
-
-            //Loop through all of the Squares on the Grid
-            //If the square has been visited reveal the contents
-
-            for (int j = 0; j < myBoard.size; j++)
+            if (e.Button == MouseButtons.Left)
             {
-                for (int k = 0; k < myBoard.size; k++) 
+
+                //If the Square is a bomb Display the Bomb Symbol
+                if (myBoard.grid[x, y].liveNeighbors == 9)
                 {
-                    if (myBoard.grid[j, k].visited == true) 
+                    btnGrid[x, y].Text = "💣";
+                }
+                else
+                {
+                    //Display the Live Neighbors for the clicked square
+                    btnGrid[x, y].Text = myBoard.grid[x, y].liveNeighbors.ToString();
+                }
+
+
+                //Set the Visited Property to true on the Selected Square
+                myBoard.grid[x, y].visited = true;
+
+                //If the grid contains a bomb at the chosen cell (row, column), set endgame to true
+                if (myBoard.grid[x, y].liveNeighbors == 9)
+                {
+                    //Display Message to the User that the Game is Over
+                    MessageBox.Show("You have hit a mine. GAME OVER");
+                    endgame = true;
+
+                    //Reveal the Entire Board
+                    for (int j = 0; j < myBoard.size; j++)
                     {
-                        btnGrid[j, k].Text = myBoard.grid[j, k].liveNeighbors.ToString();
+                        for (int k = 0; k < myBoard.size; k++)
+                        {
+                            if (myBoard.grid[j, k].liveNeighbors == 9)
+                            {
+                                btnGrid[j, k].Text = "💣";
+                            }
+                            else
+                            {
+                                btnGrid[j, k].Text = myBoard.grid[j, k].liveNeighbors.ToString();
+                            }
+                        }
+                    }
+
+                }
+
+                //Call recursive flood fill on the clicked square
+                myBoard.floodFill(x, y);
+
+                //Loop through all of the Squares on the Grid
+                //If the square has been visited reveal the contents
+
+                for (int j = 0; j < myBoard.size; j++)
+                {
+                    for (int k = 0; k < myBoard.size; k++)
+                    {
+                        if (myBoard.grid[j, k].visited == true)
+                        {
+                            btnGrid[j, k].Text = myBoard.grid[j, k].liveNeighbors.ToString();
+                        }
                     }
                 }
+
+                //Check the number of non bomb cells. 
+                int nonBombCells = 0;
+
+                for (int j = 0; j < myBoard.size; j++)
+                {
+                    for (int k = 0; k < myBoard.size; k++)
+                    {
+                        if (myBoard.grid[j, k].liveNeighbors != 9 && myBoard.grid[j, k].visited == false)
+                        {
+                            nonBombCells = nonBombCells + 1;
+                        }
+                    }
+                }
+
+                //If the number of non bomb cells is zero 
+
+                if (nonBombCells == 0)
+                {
+                    MessageBox.Show("Congrats you have one the game");
+
+                    //Reveal the Entire Board
+                    for (int j = 0; j < myBoard.size; j++)
+                    {
+                        for (int k = 0; k < myBoard.size; k++)
+                        {
+                            if (myBoard.grid[j, k].liveNeighbors == 9)
+                            {
+                                btnGrid[j, k].Text = "🏴";
+                            }
+                            else
+                            {
+                                btnGrid[j, k].Text = myBoard.grid[j, k].liveNeighbors.ToString();
+                            }
+                        }
+                    }
+                    endgame = true;
+                }
+
             }
 
-            //reset the background color of all buttons to the default (original) color. 
-            for (int i = 0; i < myBoard.size; i++)
+
+            //If the user right clicks set the Flag
+            if (e.Button == MouseButtons.Right) 
+            {
+                btnGrid[x, y].Text = "🚩";
+            
+            }
+
+                //reset the background color of all buttons to the default (original) color. 
+                for (int i = 0; i < myBoard.size; i++)
             {
                 for (int j = 0; j < myBoard.size; j++)
                 {
@@ -94,6 +176,10 @@ namespace GUI_Minesweeper
 
             //set the background of the clicked button to something different
             (sender as Button).BackColor = Color.Cornsilk;
+
+            //
+
+           
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

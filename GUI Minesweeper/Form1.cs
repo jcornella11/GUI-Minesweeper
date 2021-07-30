@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
+using System.Threading;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +14,19 @@ namespace GUI_Minesweeper
 {
     public partial class Form1 : Form
     {
+
+        static double difficulty;
         static public board myBoard = new board(10);
         public Button[,] btnGrid = new Button[myBoard.size, myBoard.size];
         bool endgame = false;
-        
-        public Form1()
+        static Stopwatch stopwatch = new Stopwatch();
+
+        public Form1(double Difficulty)
         {
+            difficulty = Difficulty;
             InitializeComponent();
             populateButtonGrid();
+            stopwatch.Start();
         }
 
         public void populateButtonGrid() 
@@ -79,8 +86,11 @@ namespace GUI_Minesweeper
                 if (myBoard.grid[x, y].liveNeighbors == 9)
                 {
                     //Display Message to the User that the Game is Over
-                    MessageBox.Show("You have hit a mine. GAME OVER");
                     endgame = true;
+                    stopwatch.Stop();
+                    TimeSpan ts = stopwatch.Elapsed;
+                    string elapsedTime3 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",ts.Hours, ts.Minutes, ts.Seconds,ts.Milliseconds / 10);
+                    MessageBox.Show("You have hit a mine. GAME OVER. Total time Played: " + elapsedTime3);
 
                     //Reveal the Entire Board
                     for (int j = 0; j < myBoard.size; j++)
@@ -135,7 +145,10 @@ namespace GUI_Minesweeper
 
                 if (nonBombCells == 0)
                 {
-                    MessageBox.Show("Congrats you have one the game");
+                    stopwatch.Stop();
+                    TimeSpan ts = stopwatch.Elapsed;
+                    string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",ts.Hours, ts.Minutes, ts.Seconds,ts.Milliseconds / 10);
+                    MessageBox.Show("Congrats you have won the game. It took you: " + elapsedTime2);
 
                     //Reveal the Entire Board
                     for (int j = 0; j < myBoard.size; j++)
@@ -153,6 +166,10 @@ namespace GUI_Minesweeper
                         }
                     }
                     endgame = true;
+                }
+                else 
+                {
+                    label2.Text = nonBombCells.ToString();
                 }
 
             }
@@ -177,9 +194,12 @@ namespace GUI_Minesweeper
             //set the background of the clicked button to something different
             (sender as Button).BackColor = Color.Cornsilk;
 
-            //
+            TimeSpan t1 = stopwatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            t1.Hours, t1.Minutes, t1.Seconds,
+            t1.Milliseconds / 10);
+            label4.Text = elapsedTime;
 
-           
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

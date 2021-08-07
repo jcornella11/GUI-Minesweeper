@@ -10,9 +10,9 @@ namespace GUI_Minesweeper
     {
         public int size { get; set; } //Square so Length & Width are Same Dimensions
         public Cell[,] grid; //2D Array of Cell Objects
-        public double Difficulty = 10; //Set Dificulty to 10% mines
+        //public int Difficulty { get; set; } 
 
-        public board(int Size)
+        public board(int Size, int difficulty)
         {
             size = Size;
             grid = new Cell[Size, Size];
@@ -25,11 +25,11 @@ namespace GUI_Minesweeper
                     grid[j, k].column = k;
                 }
             }
-            setupLiveNeighbors();
+            setupLiveNeighbors(difficulty);
             calculateLiveNeighbords();
         }
 
-        public void setupLiveNeighbors()
+        public void setupLiveNeighbors(int Difficulty)
         {
 
             for (int j = 0; j < grid.GetLength(0); j++)

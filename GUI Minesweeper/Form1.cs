@@ -14,17 +14,18 @@ namespace GUI_Minesweeper
 {
     public partial class Form1 : Form
     {
-
-        static double difficulty;
-        static public board myBoard = new board(10);
-        public Button[,] btnGrid = new Button[myBoard.size, myBoard.size];
-        bool endgame = false;
+        static public board myBoard = new board(10, 15);
+        static public Button[,] btnGrid = new Button[myBoard.size, myBoard.size];
+        static bool endgame = false;
         static Stopwatch stopwatch = new Stopwatch();
+        static string PlayerName = "";
+        static string gamedifficulty = "";
 
-        public Form1(double Difficulty)
+        public Form1(int difficulty, string playerName, string gameDifficulty)
         {
-            difficulty = Difficulty;
             InitializeComponent();
+            PlayerName = playerName;
+            gamedifficulty = gameDifficulty;
             populateButtonGrid();
             stopwatch.Start();
         }

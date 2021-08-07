@@ -49,14 +49,14 @@ namespace GUI_Minesweeper
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 758);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(356, 25);
+            this.label1.Size = new System.Drawing.Size(347, 25);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Number of None Mine Squares Remaining: ";
+            this.label1.Text = "Number of Non Mine Squares Remaining: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(374, 758);
+            this.label2.Location = new System.Drawing.Point(365, 758);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 25);
             this.label2.TabIndex = 2;
@@ -65,7 +65,7 @@ namespace GUI_Minesweeper
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(457, 758);
+            this.label3.Location = new System.Drawing.Point(430, 758);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 25);
             this.label3.TabIndex = 3;
@@ -74,7 +74,7 @@ namespace GUI_Minesweeper
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(562, 758);
+            this.label4.Location = new System.Drawing.Point(535, 758);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 25);
             this.label4.TabIndex = 4;
@@ -84,7 +84,7 @@ namespace GUI_Minesweeper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 815);
+            this.ClientSize = new System.Drawing.Size(764, 810);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

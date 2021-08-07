@@ -17,7 +17,7 @@ namespace GUI_Minesweeper
         {
             if (this.playerScore == other.playerScore) 
             {
-                return this.playerScore.CompareTo(other.gameDifficulty);
+                return this.playerScore.CompareTo(other.playerScore);
             }
             else 
             {

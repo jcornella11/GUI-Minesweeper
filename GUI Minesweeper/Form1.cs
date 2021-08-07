@@ -256,11 +256,16 @@ namespace GUI_Minesweeper
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Form f2 = new GUI_Minesweeper.Form2();
+            this.Hide();
+            f2.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Form f3 = new GUI_Minesweeper.Form3();
+            this.Hide();
+            f3.Show();
 
         }
     }

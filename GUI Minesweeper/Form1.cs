@@ -190,7 +190,7 @@ namespace GUI_Minesweeper
                             Playerstats score = new Playerstats();
                             score.playerName = entries[0];
                             score.gameTime = entries[1];
-                            score.playerScore = Double.Parse(entries[2]);
+                            score.playerScore = int.Parse(entries[2]);
                             score.gameDifficulty = entries[3];
                             highscores.Add(score);
                         }
@@ -200,7 +200,8 @@ namespace GUI_Minesweeper
                     Playerstats currentScore = new Playerstats();
                     currentScore.playerName = PlayerName;
                     currentScore.gameTime = elapsedTime2;
-                    currentScore.playerScore = Math.Ceiling(ts.TotalSeconds);
+                    double totalSeconds = Math.Ceiling(ts.TotalSeconds);
+                    currentScore.playerScore = (int)(totalSeconds);
                     currentScore.gameDifficulty = gamedifficulty;
 
                     highscores.Add(currentScore);
@@ -249,6 +250,16 @@ namespace GUI_Minesweeper
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

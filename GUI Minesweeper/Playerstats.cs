@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace GUI_Minesweeper
 {
-    class Playerstats
+    public class Playerstats: IComparable <Playerstats>
     {
         public string playerName { get; set; } = "";
         public string gameDifficulty { get; set; } = "";
         public string gameTime { get; set; } = "";
-        public double playerScore { get; set; } = 0;
+        public int playerScore { get; set; } = 0;
 
+        public int CompareTo(Playerstats other)
+        {
+            if (this.playerScore == other.playerScore) 
+            {
+                return this.playerScore.CompareTo(other.gameDifficulty);
+            }
+            else 
+            {
+                return other.playerScore.CompareTo(this.playerScore);
+            }
+        }
 
     }
 }

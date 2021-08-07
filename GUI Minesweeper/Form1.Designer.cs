@@ -34,6 +34,8 @@ namespace GUI_Minesweeper
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -47,7 +49,7 @@ namespace GUI_Minesweeper
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 758);
+            this.label1.Location = new System.Drawing.Point(12, 745);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(347, 25);
             this.label1.TabIndex = 1;
@@ -56,7 +58,7 @@ namespace GUI_Minesweeper
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(365, 758);
+            this.label2.Location = new System.Drawing.Point(365, 745);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 25);
             this.label2.TabIndex = 2;
@@ -65,7 +67,7 @@ namespace GUI_Minesweeper
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(430, 758);
+            this.label3.Location = new System.Drawing.Point(430, 745);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 25);
             this.label3.TabIndex = 3;
@@ -74,17 +76,39 @@ namespace GUI_Minesweeper
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(535, 758);
+            this.label4.Location = new System.Drawing.Point(535, 745);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 25);
             this.label4.TabIndex = 4;
             this.label4.Text = "label4";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(84, 786);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(222, 34);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Return to Main Menu";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(365, 786);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(234, 34);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "High Scores";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 810);
+            this.ClientSize = new System.Drawing.Size(764, 842);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -104,6 +128,8 @@ namespace GUI_Minesweeper
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

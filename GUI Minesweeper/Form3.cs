@@ -43,22 +43,26 @@ namespace GUI_Minesweeper
                     Playerstats score = new Playerstats();
                     score.playerName = entries[0];
                     score.gameTime = entries[1];
-                    score.playerScore = Double.Parse(entries[2]);
+                    score.playerScore = int.Parse(entries[2]);
                     score.gameDifficulty = entries[3];
                     highscores.Add(score);
-                }
-
-                
+                }   
             }
         }
 
         private void updateListViewScores() 
         {
-            //Clear the items from the list view
-            //listView1.Items.Clear();
+            //Use the Comparable interface to sort by Score & Difficulty
+            highscores.Sort();
 
-            //Load the Items into the List View
-            foreach (Playerstats score in highscores) 
+            //Use a Linq Statment to make sure only the top 5 are displayed
+            var theTopScores =
+                (from score in highscores
+                orderby score.playerScore ascending
+                select score).Take(5);
+
+
+            foreach (Playerstats score in theTopScores) 
             {
                 string[] row = {score.playerName, score.gameTime.ToString(), score.playerScore.ToString(), score.gameDifficulty};
                 listView1.Items.Add(new ListViewItem(row));

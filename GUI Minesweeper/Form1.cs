@@ -196,7 +196,6 @@ namespace GUI_Minesweeper
                         }
                     }
                     
-
                     //Add the Player Stats
                     Playerstats currentScore = new Playerstats();
                     currentScore.playerName = PlayerName;
@@ -207,9 +206,9 @@ namespace GUI_Minesweeper
                     highscores.Add(currentScore);
 
                     //Write the contents to the File and Overwrite the File
-                    foreach (Playerstats scores in highscores) 
+                    foreach (Playerstats allScores in highscores) 
                     {
-                        outputLines.Add(currentScore.playerName + ", " + currentScore.gameTime + ", " + currentScore.playerScore.ToString() + ", " + currentScore.gameDifficulty +  "\n");
+                        outputLines.Add(allScores.playerName + ", " + allScores.gameTime + ", " + allScores.playerScore.ToString() + ", " + allScores.gameDifficulty +  "\n");
                     }
 
                     File.WriteAllLines(filePath, outputLines);

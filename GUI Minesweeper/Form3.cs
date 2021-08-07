@@ -16,12 +16,12 @@ namespace GUI_Minesweeper
         static string filePath = @"highscores.txt";
         static List<Playerstats> highscores = new List<Playerstats>();
         static List<string> lines = File.ReadAllLines(filePath).ToList();
-        static List<string> outputLines = new List<string>();
 
         public Form3()
         {
             InitializeComponent();
             createListView();
+            updateListViewScores();
         }
 
         private void createListView()
@@ -29,26 +29,35 @@ namespace GUI_Minesweeper
             listView1.View = View.Details;
             listView1.Columns.Add("Player Name", 200, HorizontalAlignment.Left);
             listView1.Columns.Add("Game Time", 200, HorizontalAlignment.Left);
-            listView1.Columns.Add("Game Difficulty", 200, HorizontalAlignment.Left);
             listView1.Columns.Add("Player Score", 200, HorizontalAlignment.Left);
+            listView1.Columns.Add("Game Difficulty", 200, HorizontalAlignment.Left);
             listView1.GridLines = true;
 
             //Load Existing Score from File
             foreach (string line in lines) 
             {
                 string[] entries = line.Split(',');
-                Playerstats score = new Playerstats();
-                score.playerName = entries[0];
-                score.gameTime = entries[1];
-                score.playerScore = int.Parse(entries[2]);
-                score.gameDifficulty = entries[3];
+
+                if (entries.Length == 4)
+                {
+                    Playerstats score = new Playerstats();
+                    score.playerName = entries[0];
+                    score.gameTime = entries[1];
+                    score.playerScore = Double.Parse(entries[2]);
+                    score.gameDifficulty = entries[3];
+                    highscores.Add(score);
+                }
+
+                
             }
         }
 
         private void updateListViewScores() 
         {
+            //Clear the items from the list view
             //listView1.Items.Clear();
 
+            //Load the Items into the List View
             foreach (Playerstats score in highscores) 
             {
                 string[] row = {score.playerName, score.gameTime.ToString(), score.playerScore.ToString(), score.gameDifficulty};
@@ -64,7 +73,11 @@ namespace GUI_Minesweeper
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            
 
+
+     
         }
     }
 }

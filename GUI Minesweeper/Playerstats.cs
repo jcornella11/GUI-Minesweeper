@@ -10,8 +10,8 @@ namespace GUI_Minesweeper
     {
         public string playerName { get; set; } = "";
         public string gameDifficulty { get; set; } = "";
-        public string gameTime { get; set; }
-        public int playerScore { get; set; } = 0;
+        public string gameTime { get; set; } = "";
+        public double playerScore { get; set; } = 0;
 
 
     }

@@ -69,7 +69,9 @@ namespace GUI_Minesweeper
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Form f3 = new GUI_Minesweeper.Form3();
+            this.Hide();
+            f3.Show();
         }
     }
 }

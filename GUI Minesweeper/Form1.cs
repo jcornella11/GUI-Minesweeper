@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,10 +15,19 @@ namespace GUI_Minesweeper
 {
     public partial class Form1 : Form
     {
-        static public board myBoard = new board(10, 15);
+        //Board
+        static public board myBoard = new board(10, 1);
         static public Button[,] btnGrid = new Button[myBoard.size, myBoard.size];
+
+        //Stopwatch
         static bool endgame = false;
         static Stopwatch stopwatch = new Stopwatch();
+
+        //Player Scores and Stats
+        static List<Playerstats> highscores = new List<Playerstats>();
+        static string filePath = @"highscores.txt";
+        static List<string> lines = File.ReadAllLines(filePath).ToList();
+        static List<string> outputLines = new List<string>();
         static string PlayerName = "";
         static string gamedifficulty = "";
 
@@ -167,6 +177,42 @@ namespace GUI_Minesweeper
                         }
                     }
                     endgame = true;
+
+                    //Open the High Scores Text File & Load Existing Data
+
+                    
+                    foreach (string line in lines)
+                    {
+                        string[] entries = line.Split(',');
+
+                        if (entries.Length == 4)
+                        {
+                            Playerstats score = new Playerstats();
+                            score.playerName = entries[0];
+                            score.gameTime = entries[1];
+                            score.playerScore = Double.Parse(entries[2]);
+                            score.gameDifficulty = entries[3];
+                            highscores.Add(score);
+                        }
+                    }
+                    
+
+                    //Add the Player Stats
+                    Playerstats currentScore = new Playerstats();
+                    currentScore.playerName = PlayerName;
+                    currentScore.gameTime = elapsedTime2;
+                    currentScore.playerScore = Math.Ceiling(ts.TotalSeconds);
+                    currentScore.gameDifficulty = gamedifficulty;
+
+                    highscores.Add(currentScore);
+
+                    //Write the contents to the File and Overwrite the File
+                    foreach (Playerstats scores in highscores) 
+                    {
+                        outputLines.Add(currentScore.playerName + ", " + currentScore.gameTime + ", " + currentScore.playerScore.ToString() + ", " + currentScore.gameDifficulty +  "\n");
+                    }
+
+                    File.WriteAllLines(filePath, outputLines);
                 }
                 else 
                 {
